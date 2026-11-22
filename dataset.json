@@ -1,0 +1,43 @@
+{
+  "name": "my-pose-model",
+  "source": "https://teachablemachine.withgoogle.com/models/4vz6kuDjH/",
+  "created": "2026-11-22T18:52:20.061Z",
+  "tool": "Teachable Machine (Pose)",
+  "package": "@teachablemachine/pose@0.8.6",
+  "tfjsVersion": "1.7.4",
+  "task": "Classify a person's body pose from a webcam image",
+  "classes": [
+    { "index": 0, "label": "Hands On Hips", "samples": null },
+    { "index": 1, "label": "Normal", "samples": null },
+    { "index": 2, "label": "Left Diagonal", "samples": null },
+    { "index": 3, "label": "Right Diagonal", "samples": null },
+    { "index": 4, "label": "Star Fish", "samples": null }
+  ],
+  "input": {
+    "type": "webcam image",
+    "featureExtractor": {
+      "name": "PoseNet",
+      "architecture": "MobileNetV1",
+      "inputResolution": 257,
+      "outputStride": 16,
+      "multiplier": 0.75
+    },
+    "features": 14739,
+    "featuresNote": "PoseNet output flattened: 17x17 grid x (17 keypoint heatmaps + 34 offsets)"
+  },
+  "keypoints": [
+    "nose", "leftEye", "rightEye", "leftEar", "rightEar",
+    "leftShoulder", "rightShoulder", "leftElbow", "rightElbow",
+    "leftWrist", "rightWrist", "leftHip", "rightHip",
+    "leftKnee", "rightKnee", "leftAnkle", "rightAnkle"
+  ],
+  "classifier": {
+    "layers": [
+      { "type": "Dense", "units": 100, "activation": "relu" },
+      { "type": "Dropout", "rate": 0.5 },
+      { "type": "Dense", "units": 5, "activation": "softmax" }
+    ]
+  },
+  "output": "Probability for each class (sums to 1)",
+  "notes": "Sample counts and training images are not included in the exported model, so samples is null. Fill them in from the Teachable Machine project if known."
+}
